@@ -19,11 +19,3 @@ export function formatDate(dateString) {
   };
   return date.toLocaleDateString("en-US", options);
 }
-
-export function generateListId() {
-  return `list-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-}
-
-export function generateTaskId(listId) {
-  return `${listId}-task-${Math.floor(Math.random() * 10000)}`;
-}

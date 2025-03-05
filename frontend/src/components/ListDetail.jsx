@@ -4,7 +4,6 @@ import { bgColorMap } from "../utils/utils";
 import ListItem from "./ListItem";
 import Modal from "./Modal";
 import AddEditListModal from "../components/AddEditListModal";
-import IconButton from "../components/IconButton";
 import NoListSelected from "../components/NoListSelected";
 
 export default function ListDetail() {
@@ -13,7 +12,8 @@ export default function ListDetail() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [pickedDate, setPickedDate] = useState("");
 
-  let containerClasses = "w-3/4 p-10 flex flex-col justify-between";
+  let containerClasses =
+    "w-full h-screen flex flex-col p-5 relative overflow-hidden sm:p-10 md:flex-1";
 
   const bgColorClass =
     selectedList?.color && bgColorMap[selectedList.color]
@@ -63,7 +63,7 @@ export default function ListDetail() {
           <NoListSelected />
         ) : (
           <>
-            <div>
+            <div className="w-full text-white font-bold sticky top-5 sm:top-0 z-10">
               <div className="inline-flex flex-row gap-3 items-end justify-center mb-8">
                 <button
                   type="button"
@@ -76,37 +76,39 @@ export default function ListDetail() {
                   </h1>
                 </button>
               </div>
-              <div className="flex flex-col gap-2">
-                <ul>
-                  {selectedList.tasks?.length > 0 &&
-                    selectedList.tasks
-                      .filter((item) => !item.completed)
-                      .map((item) => <ListItem key={item.id} item={item} />)}
-                </ul>
-                {selectedList.tasks?.length > 0 &&
-                  selectedList.tasks.filter((item) => item.completed).length !==
-                    0 && (
-                    <>
-                      <span className="bg-white/80 rounded-sm px-3 py-1">
-                        Completed (
-                        {
-                          selectedList.tasks.filter((item) => item.completed)
-                            .length
-                        }
-                        )
-                      </span>
-                      <ul>
-                        {selectedList.tasks
-                          .filter((item) => item.completed)
-                          .map((item) => (
-                            <ListItem key={item.id} item={item} />
-                          ))}
-                      </ul>
-                    </>
-                  )}
-              </div>
             </div>
-            <div className="relative w-full">
+
+            <div className="flex-1 overflow-y-auto no-scrollbar">
+              <ul>
+                {selectedList.tasks?.length > 0 &&
+                  selectedList.tasks
+                    .filter((item) => !item.completed)
+                    .map((item) => <ListItem key={item.id} item={item} />)}
+              </ul>
+              {selectedList.tasks?.length > 0 &&
+                selectedList.tasks.filter((item) => item.completed).length !==
+                  0 && (
+                  <>
+                    <span className="bg-white/80 rounded-sm px-3 py-1">
+                      Completed (
+                      {
+                        selectedList.tasks.filter((item) => item.completed)
+                          .length
+                      }
+                      )
+                    </span>
+                    <ul>
+                      {selectedList.tasks
+                        .filter((item) => item.completed)
+                        .map((item) => (
+                          <ListItem key={item.id} item={item} />
+                        ))}
+                    </ul>
+                  </>
+                )}
+            </div>
+
+            <div className="w-full flex sticky pt-2 bottom-0 z-10">
               <input
                 type="text"
                 id="task"

@@ -1,1 +1,84 @@
-[{"id":"l1","icon":"🏗️","color":"red","title":"Important","tasks":[{"id":"l1t1","text":"Buy milk","due":"","completed":false},{"id":"l1t2","text":"Do homework","due":"","completed":false}]},{"id":"l2","icon":"☕","color":"blue","title":"My Day","tasks":[{"id":"l2t1","text":"Go to store","due":"2025-03-09T00:00:00.000Z","completed":true},{"id":"l2t2","text":"Make something","due":"","completed":true},{"id":"l2t3","text":"Tes","due":"2025-03-09T00:00:00.000Z","completed":false}]},{"id":"list-1741150833745-5837","icon":"🔧","color":"blue","title":"aaaa","tasks":[]},{"id":"list-1741151977111-5984","icon":"🖥️","color":"green","title":"xxxx","tasks":[]},{"id":"list-1741151984048-5629","icon":"🍿","color":"blue","title":"zxczxczx","tasks":[]},{"id":"list-1741154938108-7245","icon":"🔍","color":"purple","title":"asdasdasd","tasks":[]}]
+[
+  {
+    "icon": "🍞",
+    "color": "purple",
+    "title": "Shopping List",
+    "tasks": [
+      {
+        "text": "Bread",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-2120"
+      },
+      {
+        "text": "Milk",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-5358"
+      },
+      {
+        "text": "Fruits",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-2694"
+      },
+      {
+        "text": "Coffee",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-7255"
+      },
+      {
+        "text": "Instant noodle",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-8569"
+      },
+      {
+        "text": "Eggs",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-6249"
+      },
+      {
+        "text": "Shampoo",
+        "due": "",
+        "completed": false,
+        "id": "list-1741183457926-6982-task-2329"
+      }
+    ],
+    "id": "list-1741183457926-6982"
+  },
+  {
+    "icon": "🖥️",
+    "color": "red",
+    "title": "Homework",
+    "tasks": [
+      {
+        "text": "Physics - Exercise 4A (page 14)",
+        "due": "2025-03-14T00:00:00.000Z",
+        "completed": false,
+        "id": "list-1741183554920-776-task-4879"
+      },
+      {
+        "text": "Maths - Exercise 5.1 (page 20)",
+        "due": "2025-03-11T00:00:00.000Z",
+        "completed": false,
+        "id": "list-1741183554920-776-task-1087"
+      },
+      {
+        "text": "Art - Sketch a portrait",
+        "due": "2025-03-03T00:00:00.000Z",
+        "completed": false,
+        "id": "list-1741183554920-776-task-6158"
+      },
+      {
+        "text": "History - Make a five pages essay about WWII",
+        "due": "2025-03-02T00:00:00.000Z",
+        "completed": true,
+        "id": "list-1741183554920-776-task-6829"
+      }
+    ],
+    "id": "list-1741183554920-776"
+  }
+]

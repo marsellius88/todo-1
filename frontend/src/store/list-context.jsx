@@ -1,6 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import { generateListId, generateTaskId } from "../utils/utils";
-import { addList, deleteList, editList, fetchExistingLists } from "../http";
+import {
+  addList,
+  addTask,
+  deleteList,
+  deleteTask,
+  editList,
+  editTask,
+  fetchExistingLists,
+} from "../http";
 
 export const ListContext = createContext({
   lists: [],
@@ -15,6 +22,9 @@ export const ListContext = createContext({
   handleEditTask: (taskId) => {},
   handleDeleteTask: (taskId) => {},
 });
+
+// const initialSelectedList =
+//   JSON.parse(localStorage.getItem("selectedList")) || null;
 
 export default function ListContextProvider({ children }) {
   const [lists, setLists] = useState([]);
@@ -35,19 +45,19 @@ export default function ListContextProvider({ children }) {
   }, []);
 
   function handleSelectList(id) {
-    setSelectedList(lists.find((item) => item.id === id));
+    const selectedList = lists.find((item) => item.id === id);
+    setSelectedList(selectedList);
+    // localStorage.setItem("selectedList", JSON.stringify(selectedList));
     setInputTask("");
   }
 
   async function handleAddList(enteredDetails) {
-    const newList = {
-      id: generateListId(),
+    const newList = await addList({
       icon: enteredDetails.icon,
       color: enteredDetails.color,
       title: enteredDetails.title,
       tasks: [],
-    };
-    await addList(newList);
+    });
     setLists((prevLists) => [...prevLists, newList]);
   }
 
@@ -72,16 +82,19 @@ export default function ListContextProvider({ children }) {
       prevLists.filter((list) => list.id !== selectedList.id)
     );
     setSelectedList(null);
+    // localStorage.setItem("selectedList", null);
   }
 
-  function handleAddTask(pickedDate) {
+  async function handleAddTask(pickedDate) {
     const due = pickedDate === "" ? "" : new Date(pickedDate);
-    const newTask = {
-      id: generateTaskId(selectedList.id),
-      text: inputTask,
-      due: due,
-      completed: false,
-    };
+    const newTask = await addTask(
+      {
+        text: inputTask,
+        due: due,
+        completed: false,
+      },
+      selectedList.id
+    );
 
     setSelectedList((prevSelectedList) => {
       return {
@@ -102,7 +115,8 @@ export default function ListContextProvider({ children }) {
     setInputTask("");
   }
 
-  function handleEditTask(taskId) {
+  async function handleEditTask(taskId) {
+    await editTask(selectedList.id, taskId);
     setSelectedList((prevSelectedList) => {
       return {
         ...prevSelectedList,
@@ -128,7 +142,8 @@ export default function ListContextProvider({ children }) {
     );
   }
 
-  function handleDeleteTask(taskId) {
+  async function handleDeleteTask(taskId) {
+    await deleteTask(selectedList.id, taskId);
     setSelectedList((prevSelectedList) => {
       return {
         ...prevSelectedList,

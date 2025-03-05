@@ -41,14 +41,16 @@ app.post("/lists", async (req, res) => {
     return res.status(400).json({ message: "Missing or invalid data." });
   }
 
-  const newList = listData;
+  const newList = {
+    ...listData,
+    id: `list-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+  };
 
   const lists = await fs.readFile("./data/lists.json", "utf8");
   const allLists = JSON.parse(lists);
   allLists.push(newList);
   await fs.writeFile("./data/lists.json", JSON.stringify(allLists));
-  res.status(200).json({ message: "List created."});
-  // res.status(200).json(newList);
+  res.status(200).json(newList);
 });
 
 // Edit a list
@@ -90,16 +92,81 @@ app.delete("/lists/:listId", async (req, res) => {
   res.status(200).json({ message: "List deleted." });
 });
 
-app.put("/lists", async (req, res) => {
-  // add task
+// Add a task
+app.put("/lists/:listId/tasks", async (req, res) => {
+  const listId = req.params.listId;
+  const newTask = {
+    ...req.body.task,
+    id: `${listId}-task-${Math.floor(Math.random() * 10000)}`,
+  };
+
+  if (!newTask || newTask.text === undefined) {
+    return res.status(400).json({ message: "Missing or invalid data." });
+  }
+
+  const lists = await fs.readFile("./data/lists.json", "utf8");
+  let allLists = JSON.parse(lists);
+
+  const listIndex = allLists.findIndex((list) => list.id === listId);
+
+  if (listIndex === -1) {
+    return res.status(404).json({ message: "List not found." });
+  }
+
+  allLists[listIndex].tasks.push(newTask);
+  await fs.writeFile("./data/lists.json", JSON.stringify(allLists, null, 2));
+  res.status(200).json(newTask);
 });
 
-app.put("/lists", async (req, res) => {
-  // edit task
+// Edit a task
+app.put("/lists/:listId/tasks/:taskId/completed", async (req, res) => {
+  const { listId, taskId } = req.params;
+
+  const lists = await fs.readFile("./data/lists.json", "utf8");
+  let allLists = JSON.parse(lists);
+
+  const listIndex = allLists.findIndex((list) => list.id === listId);
+  if (listIndex === -1) {
+    return res.status(404).json({ message: "List not found." });
+  }
+
+  const taskIndex = allLists[listIndex].tasks.findIndex(
+    (task) => task.id === taskId
+  );
+  if (taskIndex === -1) {
+    return res.status(404).json({ message: "Task not found." });
+  }
+
+  allLists[listIndex].tasks[taskIndex].completed =
+    !allLists[listIndex].tasks[taskIndex].completed;
+
+  await fs.writeFile("./data/lists.json", JSON.stringify(allLists, null, 2));
+  res.status(200).json({ message: "Task updated." });
 });
 
-app.put("/lists", async (req, res) => {
-  // delete task
+// Delete a task
+app.delete("/lists/:listId/tasks/:taskId", async (req, res) => {
+  const { listId, taskId } = req.params;
+
+  const lists = await fs.readFile("./data/lists.json", "utf8");
+  let allLists = JSON.parse(lists);
+
+  const listIndex = allLists.findIndex((list) => list.id === listId);
+  if (listIndex === -1) {
+    return res.status(404).json({ message: "List not found." });
+  }
+
+  const taskIndex = allLists[listIndex].tasks.findIndex(
+    (task) => task.id === taskId
+  );
+  if (taskIndex === -1) {
+    return res.status(404).json({ message: "Task not found." });
+  }
+
+  allLists[listIndex].tasks.splice(taskIndex, 1);
+
+  await fs.writeFile("./data/lists.json", JSON.stringify(allLists, null, 2));
+  res.status(200).json({ message: "Task deleted." });
 });
 
 // 404

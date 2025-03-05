@@ -5,7 +5,7 @@ import TextButton from "./TextButton";
 import Modal from "./Modal";
 
 export default function AddEditListModal({ onModalClose, details }) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
   const [enteredValues, setEnteredValues] = useState({
     title: "",
     icon: "",
@@ -23,6 +23,15 @@ export default function AddEditListModal({ onModalClose, details }) {
       setEnteredValues(details);
     }
   }, [details]);
+
+  function resetModal() {
+    setEnteredValues({ title: "", icon: "", color: "" });
+    setErrors({
+      titleError: null,
+      iconError: null,
+      colorError: null,
+    });
+  }
 
   function handleTitleChange(event) {
     setEnteredValues((prevEnteredValues) => ({
@@ -96,27 +105,21 @@ export default function AddEditListModal({ onModalClose, details }) {
       }
 
       onModalClose();
-      setEnteredValues({ title: "", icon: "", color: "" });
-      setErrors({
-        titleError: null,
-        iconError: null,
-        colorError: null,
-      });
+      resetModal();
     }
   }
 
+  function handleCloseModalClick() {
+    if (!details) {
+      resetModal();
+    }
+    onModalClose();
+  }
+
   function handleDeleteListClick() {
-    // handleDeleteList();
-
-    setModalIsOpen(true);
-
-    // onModalClose();
-    // setEnteredValues({ title: "", icon: "", color: "" });
-    // setErrors({
-    //   titleError: null,
-    //   iconError: null,
-    //   colorError: null,
-    // });
+    onModalClose();
+    setConfirmModalIsOpen(true);
+    setEnteredValues(details);
   }
 
   function handleDeleteListConfirmationClick() {
@@ -125,12 +128,12 @@ export default function AddEditListModal({ onModalClose, details }) {
   }
 
   function handleModalClose() {
-    setModalIsOpen(false);
+    setConfirmModalIsOpen(false);
   }
 
   return (
     <>
-      <Modal open={modalIsOpen} onClose={handleModalClose}>
+      <Modal open={confirmModalIsOpen} onClose={handleModalClose}>
         <h2 className="text-xl bold mb-3">Delete List</h2>
         <p>This list will be permenantly deleted.</p>
         <p className="flex justify-end gap-4">
@@ -239,7 +242,7 @@ export default function AddEditListModal({ onModalClose, details }) {
         </div>
 
         <p className="flex justify-end gap-4">
-          <TextButton type="button" onClick={onModalClose}>
+          <TextButton type="button" onClick={handleCloseModalClick}>
             Close
           </TextButton>
           <Button>Save</Button>
