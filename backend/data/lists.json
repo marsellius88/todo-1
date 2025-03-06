@@ -1,6 +1,6 @@
 [
   {
-    "icon": "🍞",
+    "icon": "🍌",
     "color": "purple",
     "title": "Shopping List",
     "tasks": [
@@ -69,7 +69,7 @@
       {
         "text": "Art - Sketch a portrait",
         "due": "2025-03-03T00:00:00.000Z",
-        "completed": false,
+        "completed": true,
         "id": "list-1741183554920-776-task-6158"
       },
       {
@@ -80,5 +80,25 @@
       }
     ],
     "id": "list-1741183554920-776"
+  },
+  {
+    "icon": "☕",
+    "color": "orange",
+    "title": "Appointments",
+    "tasks": [
+      {
+        "text": "Medical checkup",
+        "due": "2025-03-24T00:00:00.000Z",
+        "completed": false,
+        "id": "list-1741237271565-4986-task-53"
+      },
+      {
+        "text": "Business proposal review",
+        "due": "2025-03-14T00:00:00.000Z",
+        "completed": false,
+        "id": "list-1741237271565-4986-task-5200"
+      }
+    ],
+    "id": "list-1741237271565-4986"
   }
 ]

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import {
   addList,
   addTask,
@@ -23,9 +23,6 @@ export const ListContext = createContext({
   handleDeleteTask: (taskId) => {},
 });
 
-// const initialSelectedList =
-//   JSON.parse(localStorage.getItem("selectedList")) || null;
-
 export default function ListContextProvider({ children }) {
   const [lists, setLists] = useState([]);
   const [selectedList, setSelectedList] = useState(null);
@@ -47,7 +44,6 @@ export default function ListContextProvider({ children }) {
   function handleSelectList(id) {
     const selectedList = lists.find((item) => item.id === id);
     setSelectedList(selectedList);
-    // localStorage.setItem("selectedList", JSON.stringify(selectedList));
     setInputTask("");
   }
 
@@ -82,7 +78,6 @@ export default function ListContextProvider({ children }) {
       prevLists.filter((list) => list.id !== selectedList.id)
     );
     setSelectedList(null);
-    // localStorage.setItem("selectedList", null);
   }
 
   async function handleAddTask(pickedDate) {

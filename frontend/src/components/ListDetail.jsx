@@ -67,7 +67,7 @@ export default function ListDetail() {
               <div className="inline-flex flex-row gap-3 items-end justify-center mb-8">
                 <button
                   type="button"
-                  className="cursor-pointer flex flex-row gap-2 items-center hover:bg-black/10 rounded-sm px-2 py-1"
+                  className="flex flex-row gap-2 items-center hover:bg-black/10 rounded-sm px-2 py-1"
                   onClick={handleClickEditList}
                 >
                   <span className="text-2xl">{selectedList.icon}</span>
