@@ -1,4 +1,4 @@
-# Todo App
+# 📃 Todo
 
 ![Todo App Screenshot](assets/preview-1.jpg)
 
